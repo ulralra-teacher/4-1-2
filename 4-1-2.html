@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IV. 인공지능 - 학습 데이터 (2차시)</title>
+<style>
+:root{--ink:#1f2937;--mu:#6b7280;--ac:#2563eb;--soft:#eff6ff;--ln:#d9e0ea;--ok:#15803d;--okb:#f0fdf4}
+*{box-sizing:border-box}body{margin:0;font:16px/1.65 "Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);background:#f6f8fb}
+header{background:var(--ac);color:#fff;padding:14px 18px}header h1{margin:0;font-size:20px}header p{margin:2px 0 0;font-size:13px;opacity:.9}
+nav{display:flex;gap:6px;flex-wrap:wrap;padding:10px 14px;background:#fff;border-bottom:1px solid var(--ln);position:sticky;top:0;z-index:5}
+.tab{font:inherit;font-size:14px;font-weight:700;padding:8px 12px;border:1.5px solid var(--ln);border-radius:9px;background:#fff;color:var(--ink);cursor:pointer}
+.tab[aria-pressed=true]{background:var(--ac);border-color:var(--ac);color:#fff}
+main{max-width:860px;margin:0 auto;padding:14px}
+section{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:16px;margin-bottom:14px}
+h2{margin:0 0 8px;font-size:20px}h3{margin:14px 0 6px;font-size:17px}p{margin:6px 0}.mu{color:var(--mu);font-size:14px}
+.chip{display:inline-block;font-size:13px;font-weight:700;padding:2px 10px;border-radius:99px;background:var(--soft);color:var(--ac);margin:2px}
+details{border:1.5px solid var(--ln);border-radius:10px;margin:8px 0;background:#fff}details[open]{border-color:var(--ac)}
+summary{cursor:pointer;font-weight:700;padding:10px 14px;min-height:44px}summary::marker{color:var(--ac)}
+details>div{padding:0 14px 12px;font-size:15px}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid var(--ln);padding:7px 9px;text-align:left;vertical-align:top}th{background:var(--soft)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.g>div{border:1px solid var(--ln);border-radius:10px;padding:10px 12px;font-size:14px}
+.ans{background:var(--okb);border-left:4px solid var(--ok);padding:6px 10px;border-radius:6px;font-size:14px;margin:4px 0}
+.btn{font:inherit;font-weight:700;padding:9px 14px;border-radius:9px;border:1.5px solid var(--ac);background:#fff;color:var(--ac);cursor:pointer}
+.btn.p{background:var(--ac);color:#fff}a.btn{display:inline-block;text-decoration:none}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.it{text-align:left;font:inherit;font-size:14px;padding:9px 11px;border:1.5px solid var(--ln);border-radius:10px;background:#fff;cursor:pointer}
+.it b{display:block}.it span{color:var(--mu);font-size:12.5px}.it[aria-pressed=true]{border-color:var(--ac);background:var(--soft)}
+label{display:block;font-weight:700;margin-top:12px;font-size:15px}label small{font-weight:400;color:var(--mu)}
+input,textarea{width:100%;font:inherit;padding:9px 11px;border:1.5px solid var(--ln);border-radius:9px;margin-top:4px}textarea{min-height:70px;resize:vertical}
+#msg{margin-top:10px;font-size:14px;color:#b91c1c}
+#pv{position:absolute;left:-10000px;top:0;width:700px;background:#fff;color:#000;padding:10px;font-size:14px;line-height:1.6}
+#pv h1{font-size:20px;margin:0 0 10px;border-bottom:2px solid #2563eb;padding-bottom:6px}#pv .r{margin:10px 0}#pv .r b{display:block;color:#1d4ed8}#pv .r div{white-space:pre-wrap;border:1px solid #ccc;border-radius:6px;padding:7px 9px;min-height:32px}
+@media print{body>*:not(#pv){display:none!important}#pv{position:static!important;width:auto}}
+.q{display:grid;grid-template-columns:1fr 170px;gap:8px;align-items:center;padding:8px 0;border-top:1px dashed var(--ln);font-size:14px}.q select{font:inherit;padding:7px;border:1.5px solid var(--ln);border-radius:8px;width:100%}
+.q.ok select{border-color:var(--ok);background:var(--okb)}.q.no select{border-color:#dc2626;background:#fef2f2}
+.cell{cursor:pointer;min-width:80px;height:38px}.cell.sel{background:#fde68a;outline:2px solid #d97706}
+.ck{display:inline-flex;gap:6px;align-items:center;font-weight:400;margin:6px 14px 0 0}.ck input{width:auto;margin:0}
+.res{margin-top:8px;font-size:14px;font-weight:700}@media(max-width:560px){.q{grid-template-columns:1fr}}
+</style></head><body>
+<header><h1>IV. 인공지능 · 1. 인공지능과 데이터 · 02 학습 데이터</h1><p>2차시: 1차시(수업 + 엔트리 수치 데이터 실습) / 2차시(수업 + 학습 데이터 수집하기 실습, 중단원 마무리)</p></header>
+<nav><button class="tab" data-t="p1" aria-pressed="true">1차시 수업</button><button class="tab" data-t="p2" aria-pressed="false">1차시 실습 · 수치 데이터</button><button class="tab" data-t="p3" aria-pressed="false">2차시 수업</button><button class="tab" data-t="p4" aria-pressed="false">2차시 실습 · 데이터 수집하기</button></nav>
+<main>
+<div class="pane" id="p1">
+<section><h2>1. 인공지능과 학습 데이터</h2>
+<p>인공지능은 <b>데이터를 기반으로 학습</b>해요. 사람은 책이나 인터넷으로 배우지만, 인공지능은 방대한 데이터로 스스로 학습하며 문제를 해결해요. 그래서 목적에 맞는 <b>충분한 양의 질 좋은 데이터</b>를 수집하고 분류해야 해요.</p>
+<h3>일기 예보 시스템은 데이터를 이렇게 써요 (제목을 눌러 보세요)</h3>
+<div><button class="btn" data-all>모두 펼치기 / 접기</button></div>
+<details><summary>① 학습 데이터 수집 (관측)</summary><div>다양한 장비로 풍향, 풍속, 기온, 습도, 강수량, 구름양, 구름 높이, 안개 등 날씨 데이터를 모아요.</div></details>
+<details><summary>② 인공지능 모델 생성과 학습 (수치 예보 모델)</summary><div>수집한 데이터로 공기 움직임과 날씨를 시간마다 예측하는 컴퓨터 프로그램을 만들고 학습해요.</div></details>
+<details><summary>③ 인공지능 모델 사용 (예보)</summary><div>가장 짧은 예보부터 장기 예보, 기후 전망까지 일기 예보를 만들어요.</div></details>
+<details><summary>④ 문제 해결 및 활용 (통보)</summary><div>만든 예보를 다양한 매체에 전달해 여러 분야에서 가치 있게 활용해요.</div></details>
+<h3>나쁜 데이터로 학습하면?</h3>
+<div class="g"><div><b>잘못된 정보와 오류</b><br>틀린 값이나 오류가 섞인 데이터</div><div><b>대표성이 부족해 편향된 데이터</b><br>한쪽으로 치우친 데이터</div><div><b>양이 적은 데이터</b><br>배울 내용이 부족한 데이터</div></div>
+<p>이런 데이터로 학습하면 인공지능의 학습 능력과 성능이 떨어질 뿐 아니라, 의도하지 않은 <b>부정확한 판단이나 예상하지 못한 결과</b>가 나올 수 있어요.</p></section>
+<section><h2>2. 학습 데이터의 수집 및 분류</h2>
+<p>인공지능의 학습을 위해 입력하는 데이터를 <b>학습 데이터</b>라고 해요. 유형에는 <span class="chip">수치 데이터</span><span class="chip">이미지 데이터</span><span class="chip">소리 데이터</span><span class="chip">텍스트 데이터</span>가 있어요.</p>
+<p><b>데이터 수집 방법</b>: 직접 데이터 수집 / 인터넷 검색을 통한 수집 / 공공 기관이나 기업에서 제공하는 공개 데이터 수집</p>
+<h3>(1) 수치 데이터 준비</h3>
+<p>미래의 연평균 기온을 예측하려면 어떤 데이터가 필요할까요? 엔트리에서 제공하는 우리나라의 연평균 기온과 계절별 평균 기온 데이터를 쓸 수 있어요. 표에서 열 방향의 항목을 <b>속성</b>, 칸의 값을 <b>속성값</b>이라고 해요.</p>
+<ul><li>문제 해결에 <b>꼭 필요한 속성만</b> 쓰고, 불필요하거나 중복되는 데이터는 빼요. (예: ‘연도’, ‘연평균 기온’)</li>
+<li><b>결측치</b>: 누락된 값이에요. 정보가 빠지거나 기록되지 않았을 때 생겨요. 다른 값으로 대체하거나 결측치가 있는 데이터를 제거해요.</li>
+<li><b>이상치</b>: 다른 값들과 크게 벗어난 비정상적인 값이에요. 데이터 입력 오류나 특이한 상황으로 생겨요. 그대로 쓰면 인공지능이 잘못된 패턴을 학습할 수 있어서 식별해 적절히 처리해야 해요. (박스 플롯의 사분위수 범위 밖에 있는 값)</li>
+<li><b>데이터 전처리</b>: 결측치와 이상치를 제외하는 등 학습 데이터를 정제하는 작업이에요.</li></ul></section></div>
+
+<div class="pane" id="p2" hidden>
+<section><h2>실습 1. 엔트리에서 수치 데이터 준비하기</h2>
+<p>엔트리의 ‘테이블 불러오기’로 우리나라의 연평균 기온·계절별 평균 기온 데이터를 불러와 속성을 확인해요.</p>
+<a class="btn p" href="https://playentry.org/" target="_blank" rel="noopener">엔트리 열기</a>
+<div style="margin-top:10px"><button class="btn" data-all>모두 펼치기 / 접기</button></div>
+<details><summary>1. 테이블 불러오기</summary><div>[데이터 분석] 블록에서 [테이블 불러오기]를 누르고, 테이블 선택, 파일 올리기, 새로 만들기를 차례대로 눌러요. 테이블을 추가하거나 데이터 파일을 올리거나 새로 만들 수 있어요.</div></details>
+<details><summary>2. ‘계절별 기온’ 데이터 적용하기</summary><div>[테이블 선택]을 누르고 [계절별 기온] 데이터를 선택한 뒤, [추가하기]와 [적용하기]를 차례로 눌러요.</div></details>
+<details><summary>3. 속성과 속성값 찾아보기</summary><div>열 방향의 항목(연도, 연평균, 봄, 여름 …)이 속성이에요. 미래의 연평균 기온을 예측하려면 ‘연도’와 ‘연평균 기온’을 속성으로 설정해요.</div></details>
+<details><summary>4. 결측치와 이상치 확인하기</summary><div>비어 있는 값(결측치)은 없는지, 정상 범위를 벗어난 값(이상치)은 없는지도 확인해 보아야 해요.</div></details></section>
+<section><h2>결측치와 이상치를 찾아라!</h2>
+<p class="mu">연습용 예시 데이터예요(실제 기온 자료가 아니에요). 결측치와 이상치라고 생각하는 칸을 모두 눌러 선택하고 [확인]을 눌러요.</p>
+<div style="overflow-x:auto"><table><tr><th>연도</th><th>연평균(℃)</th><th>봄(℃)</th></tr>
+<tr><td>1973</td><td class="cell" data-k="n">12.4</td><td class="cell" data-k="n">11.6</td></tr>
+<tr><td>1974</td><td class="cell" data-k="m"></td><td class="cell" data-k="n">10.8</td></tr>
+<tr><td>1975</td><td class="cell" data-k="n">12.6</td><td class="cell" data-k="m"></td></tr>
+<tr><td>1976</td><td class="cell" data-k="n">11.7</td><td class="cell" data-k="n">11.0</td></tr>
+<tr><td>1977</td><td class="cell" data-k="n">12.3</td><td class="cell" data-k="o">31.8</td></tr>
+<tr><td>1978</td><td class="cell" data-k="n">12.8</td><td class="cell" data-k="n">11.7</td></tr></table></div>
+<div style="margin-top:10px"><button class="btn p" id="ck1">확인</button></div><div class="res" id="r1"></div></section></div>
+
+<div class="pane" id="p3" hidden>
+<section><h2>(2) 이미지 데이터, 소리 데이터 준비</h2>
+<div class="g"><div><b>이미지 데이터</b><br>인물이나 동물 등이 담긴 이미지는 <b>그 대상이 명확히 드러나는</b> 이미지를 선택해요. 특정 인물을 구분하려면 그 인물이 이미지의 대부분을 차지하고 주변 배경의 물체가 최대한 적게 드러나는 것이 좋아요.<br><span class="mu">예) 토끼가 또렷한 사진 ○, 토끼 옆에 바구니 같은 물체가 두드러진 사진 △</span></div>
+<div><b>소리 데이터</b><br>중점으로 둔 음성이 <b>또렷하게</b> 들리고 <b>잡음이 최대한 적은</b> 데이터가 질 좋은 데이터예요.<br><span class="mu">예) 깨끗한 소리 ○, 잡음이 있는 소리 △</span></div></div></section>
+<section><h2>(3) 텍스트 데이터 준비</h2>
+<p>영화나 드라마에 대한 긍정적 또는 부정적 반응을 분류하려면 텍스트 데이터가 필요해요. 시청자의 반응은 인터넷 <b>댓글</b>에서 볼 수 있어요. 텍스트 데이터는 문자, 단어, 기호 등으로 구성되어 있어요.</p>
+<ul><li>사용 목적에 맞게 <b>충분히 수집</b>하고 일정한 <b>기준에 따라 분류</b>해요. (긍정 댓글 / 부정 댓글)</li><li>불필요한 기호나 오류를 제거하고, 단어나 문장을 잘게 나누어 학습하기 쉬운 형태로 정리해요.</li></ul>
+<p class="mu">번역 시스템이나 챗봇을 만들려면 아주 많은 양의 텍스트 데이터가 필요해요.</p></section>
+<section style="border-color:#f59e0b"><h3 style="margin-top:0">지식 플러스: 데이터 수집·분류 때 고려할 윤리 문제</h3><p>데이터를 수집하고 분류하는 과정에서 윤리적 문제를 고려하는 것은 매우 중요해요. 데이터에 <b>개인 정보</b>가 포함되어 있거나 <b>사회 질서를 어지럽힐 수 있는 민감한 내용</b>이 담겨 있을 때 적절히 처리하지 않으면 심각한 윤리적 문제가 생길 수 있어요.</p></section>
+<section><h2>확인해 봐요: 어떤 유형의 데이터일까?</h2>
+<div class="qz" id="g1" data-o="수치 데이터|이미지 데이터|소리 데이터|텍스트 데이터">
+<div class="q" data-a="수치 데이터"><span>연도별 연평균 기온 표</span></div><div class="q" data-a="이미지 데이터"><span>토끼가 또렷하게 찍힌 사진</span></div><div class="q" data-a="소리 데이터"><span>호랑이, 늑대, 여우의 울음소리 녹음 파일</span></div><div class="q" data-a="텍스트 데이터"><span>영화에 대한 시청자의 댓글</span></div></div>
+<div style="margin-top:10px"><button class="btn p" data-chk="g1">확인</button></div><div class="res"></div></section></div>
+
+<div class="pane" id="p4" hidden>
+<section><h2>선택 활동. 인공지능 학습 데이터 수집하기</h2>
+<p>모둠에서 정한 주제로 학습 데이터를 수집하고 분류한 뒤 아래에 정리해 <b>PDF로 제출</b>해요. 데이터를 모을 때 개인 정보와 민감한 내용이 없는지 꼭 살펴봐요.</p>
+<h3>주제 예시 (눌러서 고르거나 직접 써도 돼요)</h3><div class="items" id="items"></div>
+<label>이름(학번 포함) / 모둠 <input id="n" placeholder="예: 20101 홍길동 / 1모둠"></label>
+<label>❶ 주제 <small>(해결하고 싶은 문제나 재미있는 주제)</small><textarea id="topic"></textarea></label>
+<label>❷ 데이터 수집 방법 <small>(해당하는 것을 고르고 구체적으로 써요)</small></label>
+<span class="ck"><input type="checkbox" name="m" value="직접 데이터 수집"> 직접 데이터 수집</span><span class="ck"><input type="checkbox" name="m" value="인터넷 검색을 통한 수집"> 인터넷 검색을 통한 수집</span><span class="ck"><input type="checkbox" name="m" value="공개 데이터 수집"> 공공 기관·기업의 공개 데이터</span>
+<textarea id="mt" placeholder="예) 검색 엔진이나 캐글(kaggle) 같은 사이트에서 ‘강아지(dog)’와 ‘고양이(cat)’를 검색해 이미지를 내려받는다."></textarea>
+<label>❸ 데이터 분류 <small>(수집한 데이터를 특성이나 범주에 따라 분류해요. 분류 이름과 개수를 써요)</small><textarea id="cl" placeholder="예) 고양이 이미지 20장, 강아지 이미지 20장을 폴더로 구분했다."></textarea></label>
+<label>❹ 데이터의 유형 <small>(수집한 데이터 유형을 점검해요)</small></label>
+<span class="ck"><input type="checkbox" name="t" value="수치 데이터"> 수치 데이터</span><span class="ck"><input type="checkbox" name="t" value="이미지 데이터"> 이미지 데이터</span><span class="ck"><input type="checkbox" name="t" value="소리 데이터"> 소리 데이터</span><span class="ck"><input type="checkbox" name="t" value="텍스트 데이터"> 텍스트 데이터</span>
+<label>❺ 토의 <small>(수집한 데이터는 어떤 의미가 있을지 자유롭게 토의한 내용)</small><textarea id="ds"></textarea></label>
+<label>윤리적 문제 점검 <small>(개인 정보나 민감한 내용이 없는지, 어떻게 처리했는지)</small><textarea id="et"></textarea></label>
+<div style="margin-top:14px"><button class="btn p" id="pdf">PDF로 저장</button></div><p id="msg" role="alert"></p>
+<p class="mu">PDF가 저장되지 않으면 인쇄 창에서 ‘PDF로 저장’을 선택해요. 저장한 파일을 선생님께 제출하세요.</p></section>
+<section><h2>중단원 마무리: 용어 짝 맞추기</h2><p class="mu">설명에 알맞은 용어를 골라 보세요.</p>
+<div class="qz" id="g2" data-o="인공지능|인공지능 모델|인공지능 소프트웨어|인공지능 시스템|학습 데이터">
+<div class="q" data-a="인공지능 시스템"><span>인공지능 소프트웨어를 사용하여 사용자의 요구나 사용 목적 등을 달성해 주는 컴퓨팅 시스템</span></div>
+<div class="q" data-a="인공지능 모델"><span>분류, 예측, 군집, 생성 등의 작업을 수행하기 위해 데이터를 학습하여 만들어진 모델</span></div>
+<div class="q" data-a="학습 데이터"><span>인공지능의 학습을 위해 사용하는 데이터</span></div>
+<div class="q" data-a="인공지능 소프트웨어"><span>인공지능 모델을 사용하는 소프트웨어</span></div>
+<div class="q" data-a="인공지능"><span>인간의 지적 능력을 흉내 내어 소프트웨어로 만드는 것</span></div></div>
+<div style="margin-top:10px"><button class="btn p" data-chk="g2">확인</button></div><div class="res"></div></section></div>
+</main>
+<div id="pv"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+var $=function(s){return document.querySelector(s)},$$=function(s){return [].slice.call(document.querySelectorAll(s))};
+$$('.tab').forEach(function(b){b.onclick=function(){$$('.tab').forEach(function(x){x.setAttribute('aria-pressed',x===b)});$$('.pane').forEach(function(p){p.hidden=p.id!==b.dataset.t});scrollTo(0,0)}});
+$$('[data-all]').forEach(function(b){b.onclick=function(){var ds=[].slice.call(b.closest('section').querySelectorAll('details')),o=ds.some(function(x){return !x.open});ds.forEach(function(x){x.open=o})}});
+$$('.cell').forEach(function(c){c.onclick=function(){c.classList.toggle('sel')}});
+$('#ck1').onclick=function(){var ok=$$('.cell').every(function(c){return c.classList.contains('sel')===(c.dataset.k!=='n')});$('#r1').style.color=ok?'#15803d':'#b91c1c';$('#r1').textContent=ok?'정답이에요! 비어 있는 칸은 결측치, 다른 값들과 크게 벗어난 값은 이상치예요. 이런 값을 찾아 처리하는 것이 데이터 전처리예요.':'아직 아니에요. 비어 있는 값(결측치)과 다른 값들과 크게 벗어난 값(이상치)을 모두 골라 보세요.'};
+$$('.qz').forEach(function(g){var o=g.dataset.o.split('|');$$('#'+g.id+' .q').forEach(function(q){q.insertAdjacentHTML('beforeend','<select><option value="">고르기</option>'+o.map(function(x){return '<option>'+x+'</option>'}).join('')+'</select>')})});
+$$('[data-chk]').forEach(function(b){b.onclick=function(){var qs=$$('#'+b.dataset.chk+' .q'),n=0;qs.forEach(function(q){var ok=q.querySelector('select').value===q.dataset.a;if(ok)n++;q.className='q '+(ok?'ok':'no')});var r=b.closest('section').querySelector('.res');r.style.color=n===qs.length?'#15803d':'#b91c1c';r.textContent=n===qs.length?'모두 맞았어요!':qs.length+'개 중 '+n+'개 맞았어요. 틀린 칸을 다시 생각해 보세요.'}});
+var ITEMS=[['강아지와 고양이 구분하기','이미지 데이터 (지도서 예시)'],['미래의 연평균 기온 예측하기','수치 데이터'],['호랑이·늑대·여우 울음소리 구분하기','소리 데이터'],['영화 댓글의 긍정·부정 분류하기','텍스트 데이터'],['가위·바위·보 손 모양 구분하기','이미지 데이터'],['우리 학교 주변 새소리 구분하기','소리 데이터']];
+$('#items').innerHTML=ITEMS.map(function(x,i){return '<button class="it" data-i="'+i+'" aria-pressed="false"><b>'+x[0]+'</b><span>'+x[1]+'</span></button>'}).join('');
+$$('.it').forEach(function(b){b.onclick=function(){$$('.it').forEach(function(x){x.setAttribute('aria-pressed',x===b)});$('#topic').value=ITEMS[+b.dataset.i][0]}});
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+function cb(nm){return $$('input[name='+nm+']').map(function(x){return (x.checked?'■ ':'□ ')+x.value}).join('   ')}
+$('#pdf').onclick=function(){
+  var m=$('#msg');m.textContent='';m.style.color='#b91c1c';
+  if(!$('#n').value.trim()||!$('#topic').value.trim()){m.textContent='이름과 주제를 먼저 적어 주세요.';return}
+  var R=[['이름(학번) / 모둠',$('#n').value],['❶ 주제',$('#topic').value],['❷ 데이터 수집 방법',cb('m')+'\n'+$('#mt').value],['❸ 데이터 분류',$('#cl').value],['❹ 데이터의 유형',cb('t')],['❺ 토의',$('#ds').value],['윤리적 문제 점검',$('#et').value]];
+  var pv=$('#pv');pv.innerHTML='<h1>인공지능 학습 데이터 수집하기</h1>'+R.map(function(r){return '<div class="r"><b>'+r[0]+'</b><div>'+esc(r[1])+'</div></div>'}).join('');
+  var fn='학습데이터_수집하기_'+$('#n').value.trim().replace(/[\\\/:*?"<>|\s]+/g,'_')+'.pdf';
+  if(window.html2pdf){m.style.color='#15803d';m.textContent='PDF를 만들고 있어요…';
+    html2pdf().set({margin:12,filename:fn,image:{type:'jpeg',quality:.95},html2canvas:{scale:2,backgroundColor:'#fff',windowWidth:720},jsPDF:{unit:'mm',format:'a4'},pagebreak:{mode:['css','legacy'],avoid:'.r'}}).from(pv).save().then(function(){m.textContent='저장했어요. 다운로드한 PDF 파일을 제출하세요.'}).catch(function(){m.style.color='#b91c1c';m.textContent='';window.print()});
+  }else{window.print()}
+};
+</script></body></html>
