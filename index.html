@@ -58,6 +58,37 @@ input,textarea{width:100%;font:inherit;padding:9px 11px;border:1.5px solid var(-
 <div class="g"><div><b>❌ 잘못된 정보와 오류</b><br>틀린 값이나 오류가 섞인 데이터</div><div><b>⚖️ 대표성이 부족해 편향된 데이터</b><br>한쪽으로 치우친 데이터</div><div><b>📉 양이 적은 데이터</b><br>배울 내용이 부족한 데이터</div></div>
 <div class="fig"><b>좋은 데이터와 나쁜 데이터</b><div class="fl"><div><span class="e">🗂️</span>질 좋은 데이터<br>충분한 양</div><div class="ar">▶</div><div><span class="e">🧠</span>학습</div><div class="ar">▶</div><div><span class="e">✅</span>정확한 판단</div></div><div class="fl"><div><span class="e">🗑️</span>오류·편향·부족한<br>데이터</div><div class="ar">▶</div><div><span class="e">🧠</span>학습</div><div class="ar">▶</div><div><span class="e">⚠️</span>부정확한 판단<br>예상 못한 결과</div></div><div style="padding:4px 10px;font-size:14px"><b>예) 편향된 데이터</b> 🌹 장미 100장 <span class="bar" style="width:62%;background:#e11d48"></span><br>🌷 튤립 10장 <span class="bar" style="width:6%;background:#d97706"></span> → 새 튤립 사진을 잘 알아보지 못해요.</div></div>
 <p>이런 데이터로 학습하면 인공지능의 학습 능력과 성능이 떨어질 뿐 아니라, 의도하지 않은 <b>부정확한 판단이나 예상하지 못한 결과</b>가 나올 수 있어요.</p></section>
+<section><h2>⚖️ 편향된 데이터가 만든 실제 사례</h2>
+<p><b>편향된 데이터</b>는 어느 한쪽으로 치우쳐서 전체를 골고루 보여 주지 못하는 데이터예요. 꽃 사진이라면 틀려도 큰일은 아니지만, <b>사람과 관련된 일</b>(취업, 얼굴 인식, 광고)에서 편향이 생기면 누군가가 <b>불공평한 대우</b>를 받을 수 있어요. 실제로 있었던 사례 4가지를 살펴봐요. (제목을 눌러 보세요)</p>
+<div><button class="btn" data-all>모두 펼치기 / 접기</button></div>
+<details><summary>👩‍💼 사례 ① 아마존 채용 인공지능 <span class="chip">성별 편향</span></summary><div>
+<p><b>무슨 일이? </b>아마존은 지원자의 이력서를 인공지능이 점수로 평가해 주는 채용 프로그램을 만들었어요. 그런데 이 프로그램이 <b>여성 지원자를 불리하게 평가한다</b>는 사실이 드러났어요. ‘여성’과 관련된 단어(예: 여자 대학, 여성 동아리)가 들어간 이력서의 점수가 낮아지는 식이었어요. 아마존은 이 프로그램을 쓰지 않기로 했어요.</p>
+<p><b>왜 그랬을까? </b>인공지능은 <b>과거 약 10년 동안 회사에 제출된 이력서</b>로 학습했어요. 그런데 기술 분야 지원자와 직원은 대부분 남성이었어요. 인공지능은 “합격하는 사람의 모습 = 남성”이라는 패턴을 배워 버렸어요.</p>
+<div class="ans"><b>배운 점</b> 과거 데이터에 담긴 불공평한 현실도 인공지능은 그대로 학습해요. 데이터를 모을 때 “이 데이터가 누구를 대표하지 못할까?”를 꼭 물어야 해요.</div>
+<p class="mu">참고: <a href="https://www.cnbc.com/2018/10/10/amazon-scraps-a-secret-ai-recruiting-tool-that-showed-bias-against-women.html" target="_blank" rel="noopener">CNBC(2018)</a> · <a href="https://www.euronews.com/2018/10/10/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women" target="_blank" rel="noopener">Euronews(2018)</a></p></div></details>
+<details><summary>🙂 사례 ② 안면 인식 기술의 인종·성별 편향 <span class="chip">인종·성별 편향</span></summary><div>
+<p><b>무슨 일이? </b>2018년 MIT 연구팀(조이 불라미니, 팀닛 게브루)은 유명 기업들의 얼굴 인식 프로그램이 <b>사람마다 정확도가 크게 다르다</b>는 것을 보여 줬어요. 사진 속 사람의 성별을 맞히게 했더니, <b>피부색이 밝은 남성</b>은 거의 틀리지 않았지만 <b>피부색이 어두운 여성</b>은 오류가 훨씬 많았어요. 가장 나쁜 경우 오류율이 30%를 넘는 프로그램도 있었어요.</p>
+<div style="padding:4px 10px;font-size:14px">밝은 피부 남성 <span class="bar" style="width:4%;background:#15803d"></span> 오류 적음<br>어두운 피부 여성 <span class="bar" style="width:55%;background:#dc2626"></span> 오류 많음<br><span class="mu">※ 막대는 차이를 보여 주기 위한 그림이에요. 정확한 수치는 아래 참고 자료에서 확인해요.</span></div>
+<p><b>왜 그랬을까? </b>학습에 쓴 얼굴 사진이 <b>밝은 피부의 남성에 많이 치우쳐</b> 있었어요. 어두운 피부의 여성 사진은 적어서 인공지능이 충분히 배우지 못했어요. (편향된 데이터 + 양이 적은 데이터)</p>
+<div class="ans"><b>배운 점</b> 얼굴 인식이 신분 확인이나 수사에 쓰이면 틀린 결과가 억울한 피해로 이어질 수 있어요. 여러 피부색·성별·나이의 데이터를 <b>골고루</b> 모아야 해요.</div>
+<p class="mu">참고: <a href="https://www.media.mit.edu/projects/gender-shades/press-kit/" target="_blank" rel="noopener">MIT 미디어랩 Gender Shades 프로젝트</a></p></div></details>
+<details><summary>📷 사례 ③ 구글 포토의 이미지 분류 오류 <span class="chip">인종 편향</span></summary><div>
+<p><b>무슨 일이? </b>2015년 구글 포토의 자동 분류 기능이 <b>흑인 두 사람이 찍힌 사진에 사람이 아닌 동물 이름표를 붙이는</b> 일이 있었어요. 사진 주인이 이 사실을 알리자 구글은 <b>공개적으로 사과</b>했고, 문제를 고치겠다고 했어요.</p>
+<p><b>왜 그랬을까? </b>이미지 분류 인공지능은 학습한 사진을 기준으로 판단해요. 학습 데이터에 <b>다양한 피부색의 사람 사진이 충분하지 않았기</b> 때문이라고 지적받았어요. 인공지능은 “이건 틀린 이름표야”라는 것을 스스로 알지 못해요.</p>
+<div class="ans"><b>배운 점</b> 인공지능을 공개하기 전에 <b>다양한 사람들로 충분히 시험</b>해 봐야 해요. 오류가 발견되면 빨리 알리고 고치는 책임도 필요해요.</div>
+<p class="mu">📝 이 사례는 특정 인종의 사람들에게 큰 상처가 될 수 있어요. 결과를 놀리거나 따라 하지 않고, <b>왜 이런 일이 생겼는지</b>에 집중해서 이야기해요.</p>
+<p class="mu">참고: <a href="https://www.theregister.com/2015/07/01/google_photos_app_machine_learning_fail/" target="_blank" rel="noopener">The Register(2015)</a> · <a href="https://www.androidauthority.com/google-apologizes-tagging-black-people-gorillas-621580" target="_blank" rel="noopener">Android Authority</a></p></div></details>
+<details><summary>📢 사례 ④ 페이스북 구인·주택 광고 타겟팅 편향 <span class="chip">광고 대상 편향</span></summary><div>
+<p><b>무슨 일이? </b>페이스북에서는 광고를 <b>누구에게 보여 줄지</b> 정할 수 있었어요. 그런데 집을 구하는 광고나 일자리 광고가 <b>성별, 나이, 인종 등에 따라 일부 사람들에게만 보이거나 덜 보이는</b> 문제가 지적됐어요. 미국 정부(주택도시개발부, 법무부)와 시민단체가 문제를 제기했고, 페이스북(메타)은 이런 광고에서 대상을 고르는 기능을 줄이고 광고 전달 방식을 바꾸기로 합의했어요.</p>
+<p><b>왜 그랬을까? </b>광고 인공지능은 <b>과거에 사람들이 어떤 광고를 눌렀는지</b> 데이터로 배워요. 과거 행동에 이미 편견이 있으면, 인공지능은 “이런 사람에게 이 광고를 보여 주면 효과가 높다”라고 배워 <b>차별을 더 크게 만들 수도</b> 있어요.</p>
+<div class="ans"><b>배운 점</b> 일자리와 집은 모든 사람이 공평한 기회를 가져야 하는 분야예요. 인공지능이 누구에게 정보를 보여 주는지도 공정해야 해요.</div>
+<p class="mu">참고: <a href="https://www.justice.gov/crt/case/united-states-v-meta-platforms-inc-fka-facebook-inc-sdny" target="_blank" rel="noopener">미국 법무부 사건 페이지</a> · <a href="https://techpolicy.press/facebook-settles-lawsuit-stemming-from-hud-discrimination-complaint" target="_blank" rel="noopener">Tech Policy Press</a></p></div></details>
+<h3>🔁 네 사례의 공통점</h3>
+<div class="fig"><div class="fl"><div><span class="e">⚖️</span>한쪽으로 치우친<br>학습 데이터</div><div class="ar">▶</div><div><span class="e">🧠</span>인공지능 학습</div><div class="ar">▶</div><div><span class="e">⚠️</span>편향된 판단</div><div class="ar">▶</div><div><span class="e">😢</span>특정 사람들이<br>불공평한 피해</div></div></div>
+<div class="g"><div><b>✅ 이렇게 해요</b><br>데이터를 모을 때 <b>여러 집단이 골고루</b> 들어갔는지 확인해요.</div><div><b>✅ 스스로 질문해요</b><br>“이 데이터에서 빠진 사람은 없을까?”</div><div><b>✅ 공개 전에 시험해요</b><br><b>다양한 사람들로 시험</b>하고, 문제가 생기면 고쳐요.</div></div>
+<h3>💬 생각해 봐요</h3>
+<ul><li>아마존 채용 인공지능은 ‘성별’을 입력하지 않았는데도 편향됐어요. 왜 그런 일이 생겼을까요?</li><li>우리가 만드는 인공지능(예: 엔트리 분류 모델)의 학습 데이터를 모을 때, 편향을 줄이려면 어떤 점을 확인해야 할까요?</li><li>인공지능이 틀린 결정을 했을 때, 그 책임은 누구에게 있다고 생각하나요?</li></ul>
+</section>
 <section><h2>2. 학습 데이터의 수집 및 분류</h2>
 <p>인공지능의 학습을 위해 입력하는 데이터를 <b>학습 데이터</b>라고 해요. 유형에는 <span class="chip">수치 데이터</span><span class="chip">이미지 데이터</span><span class="chip">소리 데이터</span><span class="chip">텍스트 데이터</span>가 있어요.</p>
 <div class="fig"><div class="fl"><div><span class="e">🔢</span>수치 데이터<br>예) 기온 표</div><div><span class="e">🖼️</span>이미지 데이터<br>예) 사진</div><div><span class="e">🔊</span>소리 데이터<br>예) 울음소리</div><div><span class="e">💬</span>텍스트 데이터<br>예) 댓글</div></div></div>
